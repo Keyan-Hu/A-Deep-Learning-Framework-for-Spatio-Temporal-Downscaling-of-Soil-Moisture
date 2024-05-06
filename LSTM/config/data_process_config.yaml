@@ -1,0 +1,41 @@
+# 时序长度
+ST_Conv_T: 9
+
+ST_Hour_T: 17
+ST_Half_Day_T: 9
+ST_Day_T: 5
+ST_Static_T: 1
+
+ST-Cross_Conv: 9
+ST-Cross_Hour_T: 17
+ST-Cross_Half_Day_T: 9
+ST-Cross_Day_T: 5
+ST-Cross_Static_T: 1
+
+TCN_T: 9
+
+# 空间长度
+ST-Conv_Area: 16
+ST-Cross_Conv_Area1: 16
+ST-Cross_Conv_Area2: 24
+TCN_Area: 16
+SP_Area: 16
+
+# 数据采样部分数据增强
+stride: 4
+
+# 筛选阈值
+ST-Conv_Threshold: 0.3  #       0.5 20   0.4 30 {'0% - 10%': 1145, '10% - 20%': 4023, '20% - 30%': 6049, '30% - 40%': 41066, '40% - 50%': 44339, '50% - 60%': 57005, '60% - 70%': 111425, '70% - 80%': 66902, '80% - 90%': 46093, '90% - 100%': 60132, '0%': 60, '100%': 54511, 'total_patches': 492750}
+ST-Cross_Conv_Threshold: 0.3 # 7w 15g
+TCN_Threshold: 0.3
+SP_Threshold: 0.3 # 7w 30  完整 0.5{'0% - 10%': 47572, '10% - 20%': 25484, '20% - 30%': 19968, '30% - 40%': 15890, '40% - 50%': 14990, '50% - 60%': 17142, '60% - 70%': 15611, '70% - 80%': 19859, '80% - 90%': 20042, '90% - 100%': 30569, '0%': 26883, '100%': 239190, 'total_patches': 493200}
+
+# Mask generate args
+# 所有时间中随机选择的时间点数目
+random_time_num: 100
+# 每个时间点的随机选择的空间点数目
+time_patch_sel: 100
+# 随机掩码矩阵的数目
+num_random_masks: 5000
+# 随机掩码矩阵空缺率
+missing_rate: 0.8

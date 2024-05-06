@@ -1,0 +1,40 @@
+# 默认的训练、验证和测试配置
+random_seed: 1111  # 随机种子
+# 数据划分超参数
+train_ratio: 0.7  # 训练集的比例
+val_ratio: 0.15  # 验证集的比例
+test_ratio: 0.15  # 测试集的比例
+
+# 训练超参数
+window_length: 56  # 输入序列的长度
+input_dim: 41 # num_channel
+dropout_rate: 0.3
+hidden_size: 512
+epochs: 50
+batch_size: 256
+inference_ratio: 1  # 验证和测试的批量大小为 batch_size 的 inference_ratio 倍
+learning_rate: 0.0005  # 学习率
+factor: 0.1  # 学习率下降因子
+patience: 20  # 调度器耐心等待的轮数
+warm_up_step: 1000  # 渐变升温步数
+weight_decay: 0.001  # AdamW 优化器的权重衰减
+amp: True  # 是否使用混合精度
+load: None # 从 .pth 文件中加载模型和/或优化器，用于测试或继续训练
+max_norm: 20  # 梯度剪切的最大范数
+
+# 评估和测试超参数
+evaluate_epoch: 1  # 在训练 evaluate_epoch 轮后开始评估
+test_epoch: 5  # 在训练 test_epoch 轮后开始测试
+stage_epoch: [0, 0, 0, 0, 0]  # 每个阶段轮数后调整学习率
+save_checkpoint: True  # 是否保None存模型的检查点
+save_interval: 10  # 每隔一定轮数保存一次检查点r
+save_best_model: True   # 是否保存最佳模型
+
+# 数据转换超参数
+noise_p: 0.8  # 添加噪声的概率
+
+# 模型超参数
+dropout_p: 0.3  # 随机失活的概率
+patch_size: 256  # 输入图像的尺寸
+
+

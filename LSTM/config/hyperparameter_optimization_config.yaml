@@ -1,0 +1,17 @@
+dropout_rate:
+  type: float
+  min: 0.25
+  max: 0.35
+
+hidden_size:
+  type: int
+  min: 440
+  max: 512
+
+learning_rate:
+  type: loguniform
+  min: 0.00001
+  max: 0.0001
+
+epochs: 30
+patience: 5

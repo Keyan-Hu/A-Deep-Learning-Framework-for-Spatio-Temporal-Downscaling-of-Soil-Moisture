@@ -1,0 +1,18 @@
+0.37_Data: D:\Data_Store\Dataset\Original_Data\0.37_Data.nc
+0.1_Data: D:\Data_Store\Dataset\Original_Data\0.1_Data.nc
+0.1_normal_Data: D:\Data_Store\Dataset\Original_Data\0.1_normal_Data.zarr
+0.37_normal_Data: D:\Data_Store\Dataset\Original_Data\0.37_normal_Data.zarr
+
+mean: D:\Data_Store\Dataset\LSTM\Nor\mean.npy
+std: D:\Data_Store\Dataset\LSTM\Nor\std.npy
+
+LSTM_Data: D:\Data_Store\Dataset\LSTM
+LSTM_Data_exp: D:\Data_Store\Dataset\exp
+LSTM_Model: D:\Data_Store\Model\LSTM
+LSTM_Reconstruction: D:\Data_Store\Reconstruction\LSTM
+
+LSTM_Best_Model: D:\Data_Store\Model\LSTM\Check_point
+LSTM_check_point_Model: D:\Data_Store\Model\LSTM\Check_point
+
+log: C:\Users\Administrator\Desktop\code\LSTM\LSTM\log\log
+hyperparameter_optimization_log: C:\Users\Administrator\Desktop\code\LSTM\LSTM\log\hyperparameter_optimization_log
