@@ -1,0 +1,16 @@
+Static: 0
+# DEM vars 3
+as_dem_3s: -9999,
+Aspect1: -9999,
+Slope: -9999,
+# Soid vars 4
+sand_0-5cm_mean: -9999,
+clay_0-5cm_mean: -9999,
+silt_0-5cm_mean: -9999,
+soc_0-5cm_mean: -9999,
+# MYD13A1 vars 2
+NDVI: -3000,
+EVI: -3000,
+# other vars 3
+Longitude: -9999,
+Latitude: -9999,

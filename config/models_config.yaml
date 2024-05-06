@@ -1,0 +1,313 @@
+#Resnet模型超参数:layer18:  [2,2,2,2] layer34: [3,4,6,3] layer50:  [3,4,6,3] layer101: [3,4,23,3] layer152: [3,8,36,3]
+#KPNet模型超参数:lite:  [3,3,3,3] normal: [3,3,9,3] big:  [3,3,18,3] bigger: [3,3,27,3]
+
+#usage_model: 使用模式，可选'ST'（时空模型）, 'temporal'（仅时间模型）, 'spatial'（仅空间模型）
+#temporal_usage_max_avg: 时空模型中时间模型的使用模式，可选True（启用池化）, False（无）
+#spatial_block: 空间块类型，可选'resnet', 'unet', 'ernet', 'ernet_lite', 'kpnet', 'kpnet_mul_head', 'kpnet_Encoder_lite', 'vae', 'gan'
+#concat_method: 连接模式，可选'parallel', 'serial'
+#output_method: 输出模式，可选'add', 'individual', 'single'
+#block: Resnet空间块中的基本块类型，可选'BasicBlock', 'Bottleneck'
+#experiment_groups: 实验组，每个实验组包含多个模型，每个模型包含一个模型名称和一组参数
+#group_name: 实验组名称
+# experiment_shared_parameter: 实验组共享参数
+#   algorithm_type: "normal" #'mgda','normal','Cross'
+#   use_rmse_loss: 使用RMSE损失 
+#   use_out_of_bounds_loss: 使用越界损失
+#   ratio: 边界损失权重
+# model_name:
+# parameters:
+#   usage_model: "ST"
+#   spatial_block: "resnet"
+#   concat_method: "serial"
+#   output_method: "add"
+#   block: "BasicBlock"
+#   layers: [2,2,2,2]
+#   init_mid_channels: 128
+#   dropout: 0.4
+#   layer_scale_init_value: 1e-6
+
+##训练参数
+train_shared_parameter:
+  seed: 42
+  # 数据划分超参数
+  train_ratio: 0.7
+  val_ratio: 0.15
+  test_ratio: 0.15
+  # 训练超参数
+  learning_rate: 0.005
+  factor: 0.5  # 学习率下降因子
+  warm_up_step: 1000  # 渐变升温步数
+  weight_decay: 0.0001  # AdamW 优化器的权重衰减
+  epochs: 600
+  batch_size: 64
+  inference_ratio: 1  # 验证和测试的批量大小为 batch_size 的 inference_ratio 倍
+  patience: 30
+  amp: True
+  max_grad_norm: 20
+  # 评估和测试超参数
+  evaluate_epoch: 80  # 在训练 epoch 轮后开始评估和测试
+  test_epoch: 80
+  save_checkpoint: True
+  save_interval: 400  # 每隔一定轮数保存一次检查点r
+  save_best_model: True
+  # 数据集超参数: 研究中用到的数据增强手段
+  # 预训练数据增强
+  HorizontalFlip_p: 0.15
+  VerticalFlip_p: 0.15
+  RandomRotate90_p: 0.15
+  Transpose_p: 0.15
+  Mask_p: 0.05
+  # SM渐进掩码
+  mask_start: 0.5
+  mask_end: 1.5
+  # data渐进掩码
+  mask_data_start: 0.1
+  mask_data_end: 0.2
+
+  # 研究中没有使用的数据增强手段
+  RandomBrightnessContrast_p: 0.05
+  RandomGamma_p: 0.05
+  OneOf_p: 0.2
+
+## 模型参数
+Shared_parameter:
+  hour_in_channels: 8
+  hour_step: 5
+  day_in_channels: 23
+  day_step: 5
+  half_day_in_channels: 2
+  half_day_step: 5
+  static_in_channels: 11
+  temporal_kernel_size: 2
+  target_time_steps: 2
+  spatial_out_channels: 1
+
+experiment_groups:          
+  - group_name: "Experiment Group 0"  # ST_kpnet_Encoder_lite_serial_temporal_usage_position_embedding_individual_init256_11_121_131_dropout_rate0.3
+    experiment_shared_parameter:
+      mean: D:\Data_Store\Dataset\ST_Data\std_mean\mean.npy
+      std: D:\Data_Store\Dataset\ST_Data\std_mean\std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:
+      - model_name: "ST_kpnet_Encoder_lite_serial_temporal_usage_position_embedding_individual_init128_dropout_rate0"
+        parameters:
+          usage_model: "ST"
+          spatial_block: "kpnet"
+          concat_method: "serial"
+          temporal_usage_position_embedding: True
+          output_method: 'individual'
+          init_mid_channels: 156
+          dropout_rate: 0.05
+          layers: [2, 2, 2]
+          
+  - group_name: "Experiment Group 1" #spatial_resnet34、spatial_unet
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:          
+      - model_name: "spatial_kpnet_Encoder_lite_serial_temporal_usage_position_embedding_individual_init256"
+        parameters:
+          usage_model: "spatial"
+          spatial_block: "kpnet_Encoder_lite"
+          init_mid_channels: 256
+          dropout_rate: 0.3
+
+          
+  - group_name: "Experiment Group 2"  # ST_ViT_serial_temporal_usage_position_embedding_individual_init256
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 1/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 1/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:          
+      - model_name: "ST_ViT_serial_temporal_usage_position_embedding_individual_init256"
+        parameters:
+          usage_model: "ST"
+          temporal_usage_position_embedding: True
+          spatial_block: "ViT"
+          concat_method: "serial"
+          output_method: "individual"
+          init_mid_channels: 256
+
+  - group_name: "Experiment Group 3" 
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:          
+      - model_name: "spatial_VIT_serial_temporal_usage_position_embedding_individual_init256"
+        parameters:
+          usage_model: "spatial"
+          spatial_block: "ViT"
+          init_mid_channels: 256
+
+
+  - group_name: "Experiment Group 4" #ST_resnet34
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:
+      - model_name: "ST_resnet34_temporal_usage_position_embedding_init256"
+        parameters:
+          usage_model: "ST"
+          spatial_block: "resnet"
+          block: BasicBlock
+          layers: [3,4,6,3]
+          temporal_usage_position_embedding: True
+          init_mid_channels: 256
+          
+  - group_name: "Experiment Group 5" #ST_unet
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+
+    models:
+      - model_name: "ST_unet_temporal_usage_position_embedding_init256"
+        parameters:
+          usage_model: "ST"
+          spatial_block: "unet"
+          temporal_usage_position_embedding: True
+          init_mid_channels: 256
+       
+  - group_name: "Experiment Group 6" #spatial_resnet34、spatial_unet
+    experiment_shared_parameter:
+      mean: D:\Data_Store\Dataset\ST_Data\std_mean\mean.npy
+      std: D:\Data_Store\Dataset\ST_Data\std_mean\std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: False
+      use_ssim_loss: True
+      train: False
+      pre_train: False
+      ratio: 1.5
+
+    models:          
+      - model_name: "spatial_resnet34_temporal_usage_position_embedding_init256"
+        parameters:
+          usage_model: "spatial"
+          spatial_block: "resnet"
+          block: BasicBlock
+          layers: [3,4,6,3]
+          init_mid_channels: 256
+          
+  - group_name: "Experiment Group 7" #spatial_resnet34、spatial_unet
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+      
+    models:
+      - model_name: "spatial_unet_temporal_usage_position_embedding_init256"
+        parameters:
+          usage_model: "spatial"
+          spatial_block: "unet"
+          init_mid_channels: 256
+
+  - group_name: "Experiment Group 8" #spatial_resnet34、spatial_unet
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: True
+      train: True
+      pre_train: True
+      ratio: 1.5
+      
+    models:
+      - model_name: "temporal_temporal_usage_position_embedding"
+        parameters:
+          usage_model: "temporal"
+          spatial_block: None
+          temporal_usage_position_embedding: True
+
+  - group_name: "Experiment Group 9" #spatial_resnet34、spatial_unet
+    experiment_shared_parameter:
+      mean: /root/autodl-fs/ST_Data/std_mean/mean.npy
+      std: /root/autodl-fs/ST_Data/std_mean/std.npy
+      checkpoint_path: /root/autodl-fs/Model_ST/Experiment Group 0/Check_point_Model
+      best_model_path: /root/autodl-fs/Model_ST/Experiment Group 0/Best_Model
+      algorithm_type: "normal" #"normal" 'mgda','normal','Cross'
+      use_freeze_decoder: True
+      use_rmse_loss: True
+      use_ssim_loss: False
+      train: False
+      pre_train: False
+      ratio: 1.5
+
+    models:          
+      - model_name: "spatial_kpnet_serial_temporal_usage_position_embedding_individual_init256"
+        parameters:
+          usage_model: "spatial"
+          spatial_block: "kpnet"
+          init_mid_channels: 156
+          dropout_rate: 0.05
+          layers: [2, 2, 2]

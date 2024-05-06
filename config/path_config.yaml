@@ -1,0 +1,45 @@
+0.37_Data: D:\Data_Store\Dataset\Original_Data\0.37_Data.nc
+0.37_normal_Data: D:\Data_Store\Dataset\Original_Data\0.37_normal_Data.zarr
+0.1_Data: D:\Data_Store\Dataset\Original_Data\0.1_Data.nc
+0.1_normal_Data: D:\Data_Store\Dataset\Original_Data\0.1_normal_Data.zarr
+SP_Mask_Data: D:\Data_Store\Dataset\Mask\SP_Mask.npy
+reconstruct_data_path: D:\Data_Store\Dataset\Reconstruction\ST\RES
+reconstruct_exp_data_path: D:\Data_Store\Dataset\Reconstruction\ST\RES\0.1reconstruct_point.npy
+
+# ST
+ST_Static_Data1: D:\Data_Store\Dataset\ST_Data\Static\Static_Data.npy
+ST_Day_Data1: D:\Data_Store\Dataset\ST_Data\Day\Day_Data.npy
+ST_Half_Day_Data1: D:\Data_Store\Dataset\ST_Data\Half_Day\Half_Day_Data.npy
+ST_Hour_Data1: D:\Data_Store\Dataset\ST_Data\Hour\Hour_Data.npy
+ST_Mask1: D:\Data_Store\Dataset\ST_Data\Mask\SP_Mask.npy
+
+
+ST_Static_Data: D:\Data_Store\Dataset\ST_Conv\Data\Static\
+ST_Day_Data: D:\Data_Store\Dataset\ST_Conv\Data\Day\
+ST_Half_Day_Data: D:\Data_Store\Dataset\ST_Conv\Data\Half_Day\
+ST_Hour_Data: D:\Data_Store\Dataset\ST_Conv\Data\Hour\
+ST_Mask: D:\Data_Store\Dataset\ST_Data\Mask\SP_Mask.npy
+
+# ISMN_Clip_Data
+info_path: D:\Data_Store\Dataset\ISMN_Clip_Data\info.csv
+Ali_network_path: D:\Data_Store\Dataset\ISMN_Clip_Data\Ali
+CTP_network_path: D:\Data_Store\Dataset\ISMN_Clip_Data\CTP
+Maqu_network_path: D:\Data_Store\Dataset\ISMN_Clip_Data\Maqu
+Naqu_network_path: D:\Data_Store\Dataset\ISMN_Clip_Data\Naqu
+Shiquanhe_network_path: D:\Data_Store\Dataset\ISMN_Clip_Data\Shiquanhe
+ISMN_Clip_Data_path: D:\Data_Store\Dataset\ISMN_Clip_Data
+
+# Model_path
+log: C:\Users\Administrator\Desktop\code\ST-Conv\log\log
+hyperparameter_optimization_log: C:\Users\Administrator\Desktop\code\ST-Conv\log\hyperparameter_optimization_log
+
+Static_data_dir1: D:\Data_Store\Dataset\ST_Data\Static\Static_Data.npy
+Day_data_dir1: D:\Data_Store\Dataset\ST_Data\Day\Day_Data.npy
+Half_Day_data_dir1: D:\Data_Store\Dataset\ST_Data\Half_Day\Half_Day_Data.npy
+Hour_data_dir1: D:\Data_Store\Dataset\ST_Data\Hour\Hour_Data.npy
+
+Static_data_dir: D:\Data_Store\Dataset\exp\STexp\Static_Data.npy
+Day_data_dir: D:\Data_Store\Dataset\exp\STexp\Day_Data.npy
+Half_Day_data_dir: D:\Data_Store\Dataset\exp\STexp\Half_Day_Data.npy
+Hour_data_dir: D:\Data_Store\Dataset\exp\STexp\Hour_Data.npy
+Mask_data_dir: D:\Data_Store\Dataset\ST_Data\Mask\SP_Mask_big.npy

@@ -1,0 +1,51 @@
+# SMAP vars 1
+soil_moisture: -9999,
+# Precip vars 1
+hourlyPrecipRateGC: -9999,
+# DEM vars 3
+as_dem_3s: -9999,
+Aspect1: -9999,
+Slope: -9999,
+# Soid vars 4
+sand_0-5cm_mean: -9999,
+clay_0-5cm_mean: -9999,
+silt_0-5cm_mean: -9999,
+soc_0-5cm_mean: -9999,
+# Era5-land vars 6
+soil_temperature_level_1: -9999,
+total_evaporation_hourly: -9999,
+surface_net_solar_radiation_hourly: -9999,
+surface_net_thermal_radiation_hourly: -9999,
+surface_latent_heat_flux_hourly: -9999,
+surface_sensible_heat_flux_hourly: -9999,
+# MCD11A1 vars 2
+LST_Day_1km: 0,
+LST_Night_1km: 0,
+# MCD43C3 vars 20
+Albedo_BSA_Band1: 32767,
+Albedo_BSA_Band2: 32767,
+Albedo_BSA_Band3: 32767,
+Albedo_BSA_Band4: 32767,
+Albedo_BSA_Band5: 32767,
+Albedo_BSA_Band6: 32767,
+Albedo_BSA_Band7: 32767,
+Albedo_BSA_vis: 32767,
+Albedo_BSA_nir: 32767,
+Albedo_BSA_shortwave: 32767,
+Albedo_WSA_vis: 32767,
+Albedo_WSA_nir: 32767,
+Albedo_WSA_shortwave: 32767,
+Albedo_WSA_Band1: 32767,
+Albedo_WSA_Band2: 32767,
+Albedo_WSA_Band3: 32767,
+Albedo_WSA_Band4: 32767,
+Albedo_WSA_Band5: 32767,
+Albedo_WSA_Band6: 32767,
+Albedo_WSA_Band7: 32767,
+# MYD13A1 vars 2
+NDVI: -3000,
+EVI: -3000,
+# other vars 3
+Longitude: -9999,
+Latitude: -9999,
+DOY: -9999

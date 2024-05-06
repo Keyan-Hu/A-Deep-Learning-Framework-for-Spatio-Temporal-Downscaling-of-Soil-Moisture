@@ -1,0 +1,15 @@
+# 时序长度
+ST_Conv_T: 5
+
+ST_Hour_T: 5
+ST_Half_Day_T: 5
+ST_Day_T: 5
+ST_Static_T: 1
+
+# 空间长度
+ST-Conv_Area: 16
+SP_Area: 16
+# 采样步长
+stride: 2 
+# 筛选阈值
+ST-Conv_Threshold: 0.8 

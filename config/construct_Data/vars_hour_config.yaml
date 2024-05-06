@@ -1,0 +1,12 @@
+Hour: 0
+# Precip vars 1
+hourlyPrecipRateGC: -9999,
+# Era5-land vars 6
+soil_temperature_level_1: -9999,
+total_evaporation_hourly: -9999,
+surface_net_solar_radiation_hourly: -9999,
+surface_net_thermal_radiation_hourly: -9999,
+surface_latent_heat_flux_hourly: -9999,
+surface_sensible_heat_flux_hourly: -9999,
+# others vars 1
+DOY: -9999

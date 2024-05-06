@@ -1,0 +1,26 @@
+Day: 0
+# MCD11A1 vars 2
+LST_Day_1km: 0,
+LST_Night_1km: 0,
+# MCD43C3 vars 20
+Albedo_BSA_Band1: 32767,
+Albedo_BSA_Band2: 32767,
+Albedo_BSA_Band3: 32767,
+Albedo_BSA_Band4: 32767,
+Albedo_BSA_Band5: 32767,
+Albedo_BSA_Band6: 32767,
+Albedo_BSA_Band7: 32767,
+Albedo_BSA_vis: 32767,
+Albedo_BSA_nir: 32767,
+Albedo_BSA_shortwave: 32767,
+Albedo_WSA_vis: 32767,
+Albedo_WSA_nir: 32767,
+Albedo_WSA_shortwave: 32767,
+Albedo_WSA_Band1: 32767,
+Albedo_WSA_Band2: 32767,
+Albedo_WSA_Band3: 32767,
+Albedo_WSA_Band4: 32767,
+Albedo_WSA_Band5: 32767,
+Albedo_WSA_Band6: 32767,
+Albedo_WSA_Band7: 32767,
+DOY: -9999
